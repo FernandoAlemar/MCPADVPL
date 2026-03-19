@@ -1,0 +1,14 @@
+[project]
+name = "mcp-rest-tlpp"
+version = "1.0.0"
+description = "Servidor MCP em Python para orientar o processo de geracao de APIs REST TLPP."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.2.0",
+    "pydantic",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

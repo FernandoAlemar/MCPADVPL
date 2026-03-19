@@ -1,0 +1,26 @@
+---
+description: Padrao tecnico obrigatorio para APIs REST TLPP
+globs: "**/*.tlpp"
+alwaysApply: false
+---
+
+# Padrao tecnico para APIs REST TLPP
+
+Ao criar ou alterar APIs REST em TLPP neste projeto:
+
+- Siga `Producao/Rest/style_guide_rest_tlpp.md`.
+- Use os includes obrigatorios: `tlpp-core.th`, `tlpp-rest.th`, `TOTVS.CH`, `PROTHEUS.CH`, `TBICONN.CH`, `TOPCONN.CH`.
+- Documente cada endpoint com cabecalho contendo funcao, tipo, descricao, parametros, retorno e historico de atualizacao.
+- Configure `Content-Type` como `application/json` com `charset=utf-8`.
+- Padronize o retorno JSON com `Code`, `Message` e `ITENS`.
+- Sempre sincronize `oRest:setStatusCode()` com o valor de `Code`.
+- Valide `api-token` no header:
+  - `401` quando o token nao estiver configurado ou nao for enviado
+  - `403` quando o token enviado for diferente do esperado
+- Em endpoints GET, valide query params obrigatorios antes de executar a consulta.
+- Em endpoints POST/PUT, trate JSON invalido com retorno `400`.
+- Em consultas SQL, use `%table:%`, `%notDel%` e `%exp:%` quando aplicavel.
+- Sempre feche aliases de query com `DbCloseArea()`.
+- Em gravacoes, execute `MsUnlock()` apos `RecLock()`.
+- Nao exponha detalhes internos, stacktrace, SQL bruto ou dados sensiveis no campo `Message`.
+- Quando nao houver dados, retorne resposta padronizada sem quebrar o contrato do endpoint.

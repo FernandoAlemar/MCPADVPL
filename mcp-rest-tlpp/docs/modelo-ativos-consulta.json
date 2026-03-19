@@ -1,0 +1,12 @@
+{
+  "prompt": "criar_api_rest_tlpp",
+  "arguments": {
+    "objetivo": "Consulta ativos por filial e departamento, retornando dados cadastrais e localizacao",
+    "metodo": "GET",
+    "rota": "/v1/ativos/consulta",
+    "pasta": "Producao/Rest",
+    "nome_arquivo": "apiAtivosConsulta.tlpp",
+    "nome_funcao": "getAtivosPorDepartamentoFilial",
+    "query_origem": "SELECT U09_FILIAL, NOMEMP = CASE WHEN LEFT(U09_FILIAL,2) = '01' THEN 'BEP' WHEN LEFT(U09_FILIAL,2) = '02' THEN 'CBAN' WHEN LEFT(U09_FILIAL,2) = '03' THEN 'CBTUR' WHEN LEFT(U09_FILIAL,2) = '04' THEN 'BANCORTUR' WHEN LEFT(U09_FILIAL,2) = '05' THEN 'BCS' WHEN LEFT(U09_FILIAL,2) = '06' THEN 'BAC' WHEN LEFT(U09_FILIAL,2) = '07' THEN 'INSTITUTO' WHEN LEFT(U09_FILIAL,2) = '08' THEN 'CSC' WHEN LEFT(U09_FILIAL,2) = '09' THEN 'CRC' END, U09_PLACA, U09_DESCRI, U09_MODELO, U09_MARCA, U09_SERIAL, U09_LOCAL, SNL.NL_DESCRIC, U09_GRUPO, U09_CONTA, U09_VLAQUI FROM U09200 U09 INNER JOIN SNL200 SNL ON (U09_LOCAL = SNL.NL_CODIGO AND SNL.D_E_L_E_T_ = '') WHERE U09.D_E_L_E_T_ = ''"
+  }
+}

@@ -1,0 +1,29 @@
+---
+description: Regras obrigatorias para criacao e manutencao de APIs REST TLPP
+alwaysApply: true
+---
+
+# Processo de APIs REST
+
+Ao receber um pedido para criar, alterar, revisar ou propor uma API neste projeto:
+
+- Antes de criar a API, pergunte obrigatoriamente em qual pasta o arquivo deve ficar.
+- Nao inicie a implementacao da API sem essa resposta do usuario.
+- Se a pasta ja tiver sido informada explicitamente pelo usuario na conversa atual, use-a sem perguntar novamente.
+- Ao trabalhar com APIs REST TLPP, siga `Producao/Rest/style_guide_rest_tlpp.md`.
+- Em endpoints REST, padronize o retorno com `Code`, `Message` e `ITENS`.
+- Sempre sincronize `oRest:setStatusCode()` com o valor de `Code`.
+- Valide o header `api-token` conforme o style guide:
+  - `401` para token ausente ou nao configurado
+  - `403` para token invalido
+- Documente cada endpoint no cabecalho da funcao conforme o modelo do style guide.
+- Feche aliases de query com `DbCloseArea()`.
+- Use `Content-Type` como `application/json` com `charset=utf-8`.
+
+# Pergunta obrigatoria
+
+Antes de qualquer implementacao de API, faca uma pergunta direta equivalente a:
+
+`Em qual pasta essa API deve ser criada?`
+
+Sem essa resposta, apenas planeje ou esclareca duvidas; nao gere arquivo de endpoint.
