@@ -6,7 +6,9 @@ Este manual permite configurar o MCP `rest-tlpp` em um ambiente local.
 
 - Python 3.10 ou superior
 - Cursor ou VS Code com suporte a MCP
-- acesso a esta pasta do projeto
+- acesso a esta pasta do projeto (`mcp-rest-tlpp` dentro do repositorio [MCPADVPL](https://github.com/FernandoAlemar/MCPADVPL), se voce clonou o monorepo)
+- export SX3 em JSON (`Dicionario de dados PROTHEUS.json` ou equivalente fornecido pela equipe)
+- ~1 GB de espaco em disco para `data/dicionario/` apos a conversao
 
 Na raiz do projeto devem existir:
 
@@ -55,7 +57,36 @@ pip install -r requirements.txt
 python -c "from mcp.server.fastmcp import FastMCP; print('OK')"
 ```
 
-## 5. Configurar no Cursor
+## 5. Dicionario de dados (obrigatorio apos clone)
+
+O Git **nao** inclui `data/dicionario/` (milhares de arquivos JSON). Sem essa pasta, a tool `consultar_tabela_dicionario` e o indice completo nao funcionam.
+
+### Clone do MCPADVPL
+
+```powershell
+git clone https://github.com/FernandoAlemar/MCPADVPL.git
+cd MCPADVPL\mcp-rest-tlpp
+```
+
+### Gerar `data/dicionario/` a partir do export SX3
+
+Com o venv ativo e dependencias instaladas (passos 2 e 3):
+
+```powershell
+pip install ijson
+python scripts/converter_sx3_para_dicionario.py --clean --input "CAMINHO\Para\Dicionario de dados PROTHEUS.json"
+python scripts/gerar_dicionario_projeto.py
+```
+
+- `--clean` recria `data/dicionario/tabelas/` do zero
+- a conversao pode levar varios minutos e ocupar ~1 GB em disco
+- detalhes: **docs/setup-dicionario-dados.md**
+
+### Conferir
+
+Deve existir `data/dicionario/index.json` e, por exemplo, `data/dicionario/tabelas/S/SA1.json`.
+
+## 6. Configurar no Cursor
 
 Crie ou edite `.cursor/mcp.json` no projeto que vai consumir este MCP:
 
@@ -71,7 +102,7 @@ Crie ou edite `.cursor/mcp.json` no projeto que vai consumir este MCP:
 }
 ```
 
-## 6. Configurar no VS Code
+## 7. Configurar no VS Code
 
 Detalhes em **docs/configurar-vscode.md**. Resumo:
 
@@ -79,11 +110,11 @@ Detalhes em **docs/configurar-vscode.md**. Resumo:
 - **Workspace = outro projeto (ex.: Protheus):** crie `.vscode/mcp.json` nesse projeto com caminho absoluto para o Python e o `server.py` do mcp-rest-tlpp.
 - **Qualquer projeto:** use o comando **MCP: Open User Configuration** e adicione o servidor com caminho absoluto.
 
-## 7. Reiniciar o editor
+## 8. Reiniciar o editor
 
 Depois de alterar a configuracao do MCP, reinicie o Cursor ou o VS Code.
 
-## 8. Verificar se esta funcionando
+## 9. Verificar se esta funcionando
 
 Confirme se o servidor aparece listado e se os resources abaixo ficam disponiveis:
 
@@ -91,3 +122,7 @@ Confirme se o servidor aparece listado e se os resources abaixo ficam disponivei
 - `rest-tlpp://rules/api-rest-processo`
 - `rest-tlpp://rules/api-rest-tlpp`
 - `rest-tlpp://contexto/criar-api`
+- `rest-tlpp://docs/dicionario-projeto`
+- `rest-tlpp://docs/dicionario-index`
+
+Teste a tool **consultar_tabela_dicionario** com `tabela="SA1"`. Se retornar erro de arquivo nao encontrado, refaca o passo 5.

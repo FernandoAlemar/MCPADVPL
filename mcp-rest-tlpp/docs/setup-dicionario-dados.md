@@ -2,9 +2,7 @@
 
 O dicionario **oficial deste MCP** vem do export SX3 do seu ambiente Protheus (arquivo JSON enviado pela equipe), convertido para a estrutura local abaixo.
 
-**Nao use** o repositorio [protheus-dicionario](https://github.com/FernandoAlemar/protheus-dicionario) como fonte — ele pode estar incompleto em relacao ao seu ambiente.
-
-## Estrutura local (modelo protheus-dicionario)
+## Estrutura local
 
 ```text
 data/dicionario/
