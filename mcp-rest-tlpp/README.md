@@ -1,6 +1,6 @@
 # MCP - Agente de Criacao de APIs REST TLPP
 
-Este repositorio e autocontido: contem o servidor MCP, a documentacao e as rules necessarias para apoiar a criacao de APIs REST TLPP no Protheus.
+Modulo **mcp-rest-tlpp** do monorepo [MCPADVPL](https://github.com/FernandoAlemar/MCPADVPL). Contem o servidor MCP, documentacao e rules para criacao de APIs REST TLPP no Protheus.
 
 ## Estrutura
 
@@ -23,7 +23,12 @@ mcp-rest-tlpp/
 
 ## Uso rapido
 
-1. Clone ou copie esta pasta para onde quiser.
+1. Clone o monorepo e entre na pasta do modulo:
+   ```powershell
+   git clone https://github.com/FernandoAlemar/MCPADVPL.git
+   cd MCPADVPL\mcp-rest-tlpp
+   ```
+   Ou use esta pasta local ja existente (mesmo conteudo do modulo).
 2. Crie o ambiente e instale dependencias:
    ```powershell
    cd mcp-rest-tlpp
@@ -31,7 +36,7 @@ mcp-rest-tlpp/
    .venv\Scripts\activate
    pip install -r requirements.txt
    ```
-3. Gere o dicionario a partir do **seu export SX3** (nao use o Git publico): `docs/setup-dicionario-dados.md`
+3. Gere o dicionario a partir do **seu export SX3**: `docs/setup-dicionario-dados.md`
 4. Configure o Cursor ou o VS Code conforme `docs/manual-configuracao-mcp-equipe-dev.md`.
 
 ## Recursos expostos
@@ -68,6 +73,18 @@ mcp-rest-tlpp/
 - Python 3.10+
 - Cursor ou VS Code com suporte a MCP
 - ~1 GB disco livre para `data/dicionario/` (apos setup)
+
+## Git e publicacao
+
+- **Remote:** `https://github.com/FernandoAlemar/MCPADVPL.git` (pasta `mcp-rest-tlpp/` dentro do monorepo)
+- **Nao use** `git push` direto da raiz desta pasta — o historico local e so do modulo; o GitHub espera o monorepo.
+- **Publicar alteracoes:**
+
+  ```powershell
+  .\scripts\publicar-no-mcpadvpl.ps1 -CommitMessage "sua mensagem de commit"
+  ```
+
+  Requer o clone `MCPADVPL` em `..\MCPADVPL` (irmao desta pasta em `PROTHEUS-ADVPL-GIT`).
 
 ## Documentacao completa
 
