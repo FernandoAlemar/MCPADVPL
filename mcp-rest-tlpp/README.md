@@ -8,23 +8,17 @@ Este repositorio e autocontido: contem o servidor MCP, a documentacao e as rules
 mcp-rest-tlpp/
 ├── server.py
 ├── requirements.txt
-├── pyproject.toml
-├── .gitignore
-├── README.md
+├── data/
+│   ├── dicionario/           # JSON por tabela (gerado; ver .gitignore)
+│   └── dicionario-meta.json  # subset e metadados do projeto
+├── scripts/
+│   ├── converter_sx3_para_dicionario.py
+│   └── gerar_dicionario_projeto.py
 ├── docs/
-│   ├── style-guide-rest-tlpp.md
-│   ├── prompt-criar-api-rest.md
-│   ├── instrucoes-agente.md
-│   ├── manual-desenvolvedor-rest-tlpp.md
-│   ├── manual-configuracao-mcp-equipe-dev.md
-│   └── dicionario-dados-protheus.md
-├── rules/
-│   ├── api-rest-processo.mdc
-│   └── api-rest-tlpp.mdc
-├── .vscode/
-│   └── mcp.json
-└── .cursor/
-    └── mcp.json.example
+│   ├── dicionario-projeto.md
+│   ├── setup-dicionario-dados.md
+│   └── ...
+└── rules/
 ```
 
 ## Uso rapido
@@ -37,7 +31,8 @@ mcp-rest-tlpp/
    .venv\Scripts\activate
    pip install -r requirements.txt
    ```
-3. Configure o Cursor ou o VS Code conforme `docs/manual-configuracao-mcp-equipe-dev.md`.
+3. Gere o dicionario a partir do **seu export SX3** (nao use o Git publico): `docs/setup-dicionario-dados.md`
+4. Configure o Cursor ou o VS Code conforme `docs/manual-configuracao-mcp-equipe-dev.md`.
 
 ## Recursos expostos
 
@@ -48,7 +43,9 @@ mcp-rest-tlpp/
 | `rest-tlpp://docs/instrucoes-agente` | Instrucoes operacionais do agente |
 | `rest-tlpp://docs/manual-desenvolvedor` | Manual do desenvolvedor |
 | `rest-tlpp://docs/manual-configuracao-mcp` | Manual de configuracao do MCP |
-| `rest-tlpp://docs/dicionario-dados` | Dicionario de dados Protheus (tabelas/campos para APIs) |
+| `rest-tlpp://docs/dicionario-dados` | Guia do dicionario (JSON + tools) |
+| `rest-tlpp://docs/dicionario-projeto` | Tabelas do PROTHEUS-ADVPL |
+| `rest-tlpp://docs/dicionario-index` | Indice resumido de tabelas |
 | `rest-tlpp://rules/api-rest-processo` | Rule de processo |
 | `rest-tlpp://rules/api-rest-tlpp` | Rule tecnica |
 | `rest-tlpp://contexto/criar-api` | Contexto agregado para criacao de API |
@@ -64,14 +61,17 @@ mcp-rest-tlpp/
 - `validar_solicitacao_api_rest_tlpp`
 - `gerar_especificacao_api_rest_tlpp`
 - `gerar_template_api_rest_tlpp`
+- `consultar_tabela_dicionario` — definicao JSON de uma tabela (ex.: SA1)
 
 ## Requisitos
 
 - Python 3.10+
 - Cursor ou VS Code com suporte a MCP
+- ~1 GB disco livre para `data/dicionario/` (apos setup)
 
 ## Documentacao completa
 
 - `docs/manual-configuracao-mcp-equipe-dev.md`
 - `docs/manual-desenvolvedor-rest-tlpp.md`
-- `docs/dicionario-dados-protheus.md` — dicionario de dados para montagem de queries e APIs
+- `docs/setup-dicionario-dados.md`
+- `docs/dicionario-projeto.md` — subset do projeto

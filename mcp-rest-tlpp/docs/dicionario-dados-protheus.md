@@ -1,4 +1,6 @@
-# Dicionário de Dados — MCP-REST-TLPP (Projeto PROTHEUS-ADVPL)
+# Dicionário de Dados — MCP-REST-TLPP (legado / referência)
+
+> **Atualizado:** o MCP usa `docs/dicionario-projeto.md`, `data/dicionario/` (JSON) e a tool `consultar_tabela_dicionario`. Este arquivo permanece como referência histórica e fonte do `dicionario-meta.json`. Ver `docs/setup-dicionario-dados.md`.
 
 Documento de referência do projeto **MCP-REST-TLPP** para apoio à criação de APIs REST TLPP. Ao solicitar uma API informando os dados desejados, o agente utiliza este dicionário para **montar a query** (tabelas, alias, campos, JOINs) e **construir o endpoint** (rotas, parâmetros, filtros e contrato de retorno).
 

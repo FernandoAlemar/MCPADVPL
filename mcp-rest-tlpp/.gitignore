@@ -1,0 +1,12 @@
+node_modules/
+npm-debug.log*
+.venv/
+__pycache__/
+*.pyc
+
+# Dicionario completo (gerado ou clone) ? nao versionar
+data/dicionario/
+data/_dicionario_clone/
+
+# Config MCP local (caminhos da maquina)
+.cursor/mcp.json

@@ -15,6 +15,8 @@ from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
+import json
+
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parent
@@ -47,6 +49,74 @@ def _read_file(relative_path: str, encoding: str = "utf-8") -> str:
         return f"[Arquivo nao encontrado: {relative_path}]"
     except Exception as exc:
         return f"[Erro ao ler {relative_path}: {exc}]"
+
+
+def _dicionario_dir() -> Path:
+    return _PROJECT_ROOT / "data" / "dicionario"
+
+
+def _normalize_tabela_codigo(codigo: str) -> str:
+    return (codigo or "").strip().upper()
+
+
+def _table_json_path(tabela: str) -> Path:
+    code = _normalize_tabela_codigo(tabela)
+    reserved = {"CON", "NUL", "PRN", "AUX"}
+    prefix = "_" if code in reserved else (code[0] if code else "X")
+    filename = f"_{code}.json" if code in reserved else f"{code}.json"
+    return _dicionario_dir() / "tabelas" / prefix / filename
+
+
+def _load_table_json(tabela: str) -> dict | None:
+    path = _table_json_path(tabela)
+    if not path.is_file():
+        return None
+    with path.open(encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def _dicionario_index_summary(limit: int = 200) -> str:
+    index_path = _dicionario_dir() / "index.json"
+    if not index_path.is_file():
+        return "[Indice nao encontrado. Execute scripts/converter_sx3_para_dicionario.py a partir do export SX3 (veja docs/setup-dicionario-dados.md)]"
+    with index_path.open(encoding="utf-8") as handle:
+        index = json.load(handle)
+    total = len(index)
+    lines = [
+        f"# Indice do dicionario ({total} tabelas)",
+        "",
+        "Use a tool `consultar_tabela_dicionario` com o codigo da tabela (ex.: SA1, SE1).",
+        "",
+        "| Codigo | Nome | Prefixo |",
+        "|--------|------|---------|",
+    ]
+    for item in index[:limit]:
+        lines.append(
+            f"| {item.get('codigo', '')} | {item.get('nome', '')} | {item.get('prefixo', '')} |"
+        )
+    if total > limit:
+        lines.append(f"\n... e mais {total - limit} tabelas no index.json completo.")
+    return "\n".join(lines)
+
+
+DICIONARIO_DADOS_STUB = """# Dicionario de dados Protheus (MCP REST TLPP)
+
+O dicionario completo esta em `data/dicionario/` (JSON por tabela).
+
+## Como consultar
+
+1. **Projeto (subset):** `rest-tlpp://docs/dicionario-projeto`
+2. **Indice:** `rest-tlpp://docs/dicionario-index`
+3. **Tabela completa:** tool `consultar_tabela_dicionario(tabela="SA1")`
+
+## Atualizar a partir do export SX3
+
+```powershell
+pip install ijson
+python scripts/converter_sx3_para_dicionario.py --input "C:\\Users\\alemar\\Downloads\\Dicionário de dados PROTHEUS.json"
+python scripts/gerar_dicionario_projeto.py
+```
+"""
 
 
 def _normalize_route(route: str) -> str:
@@ -445,8 +515,37 @@ def resource_manual_configuracao() -> str:
 
 @mcp.resource("rest-tlpp://docs/dicionario-dados")
 def resource_dicionario_dados() -> str:
-    """Dicionario de dados Protheus para montagem de queries e APIs REST TLPP."""
-    return _read_file("docs/dicionario-dados-protheus.md")
+    """Guia de uso do dicionario de dados Protheus (JSON + tools)."""
+    return DICIONARIO_DADOS_STUB
+
+
+@mcp.tool()
+def consultar_tabela_dicionario(tabela: str) -> dict:
+    """Retorna a definicao JSON completa de uma tabela Protheus (campos, indices, relacionamentos)."""
+    code = _normalize_tabela_codigo(tabela)
+    if not code:
+        return {"ok": False, "message": "Informe o codigo da tabela (ex.: SA1)."}
+    data = _load_table_json(code)
+    if data is None:
+        return {
+            "ok": False,
+            "tabela": code,
+            "message": f"Tabela {code} nao encontrada em data/dicionario/tabelas/.",
+            "path": str(_table_json_path(code)),
+        }
+    return {"ok": True, "tabela": code, "data": data}
+
+
+@mcp.resource("rest-tlpp://docs/dicionario-index")
+def resource_dicionario_index() -> str:
+    """Indice resumido de todas as tabelas do dicionario."""
+    return _dicionario_index_summary()
+
+
+@mcp.resource("rest-tlpp://docs/dicionario-projeto")
+def resource_dicionario_projeto() -> str:
+    """Subset de tabelas usadas no projeto PROTHEUS-ADVPL."""
+    return _read_file("docs/dicionario-projeto.md")
 
 
 # Resources - rules/
@@ -513,7 +612,7 @@ def criar_api_rest_tlpp(
         "- rest-tlpp://rules/api-rest-processo\n"
         "- rest-tlpp://rules/api-rest-tlpp\n"
         "- rest-tlpp://docs/style-guide\n"
-        "- rest-tlpp://docs/dicionario-dados (tabelas/campos para montar a query)\n\n"
+        "- rest-tlpp://docs/dicionario-projeto\n- rest-tlpp://docs/dicionario-index\n- tool consultar_tabela_dicionario(tabela) para campos completos\n\n"
         "Se a pasta nao tiver sido informada, nao gere o endpoint ainda."
     )
 

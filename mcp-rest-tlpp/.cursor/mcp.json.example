@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "rest-tlpp": {
+      "command": "CAMINHO_ABSOLUTO_ATE_MCP_REST_TLPP\\.venv\\Scripts\\python.exe",
+      "args": ["CAMINHO_ABSOLUTO_ATE_MCP_REST_TLPP\\server.py"],
+      "cwd": "CAMINHO_ABSOLUTO_ATE_MCP_REST_TLPP"
+    }
+  }
+}

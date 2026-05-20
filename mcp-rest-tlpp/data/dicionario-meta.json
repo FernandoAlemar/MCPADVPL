@@ -1,0 +1,364 @@
+{
+  "tabelas": [
+    {
+      "codigo": "SA1",
+      "nome": "Clientes",
+      "secao": "Financeiro — Contas a Receber / Cobrança",
+      "modulo": "SIGAFAT / SIGAFIN",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Cadastro de clientes",
+      "uso_no_projeto": "BBFIN41 (Prepare), M030INC, FA200FIL",
+      "chave_primaria": "SA1_FILIAL + SA1_COD + SA1_LOJA"
+    },
+    {
+      "codigo": "SE1",
+      "nome": "Títulos a Receber",
+      "secao": "Financeiro — Contas a Receber / Cobrança",
+      "modulo": "SIGAFIN",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Títulos a receber (duplicatas/boletos)",
+      "uso_no_projeto": "FA200FIL (Cobrança)",
+      "chave_primaria": "E1_FILIAL + E1_PREFIXO + E1_NUM + E1_PARCELA + E1_TIPO + E1_CLIENTE + E1_LOJA"
+    },
+    {
+      "codigo": "SE5",
+      "nome": "Movimentação Contas a Receber",
+      "secao": "Financeiro — Contas a Receber / Cobrança",
+      "modulo": "SIGAFIN",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Movimentação de contas a receber",
+      "uso_no_projeto": "F430BXA.PRW (ponto de entrada baixa)",
+      "chave_primaria": "E5_FILIAL + E5_PREFIXO + E5_NUM + E5_PARCELA + E5_TIPO + E5_CLIFOR + E5_LOJA + E5_DATA"
+    },
+    {
+      "codigo": "SA2",
+      "nome": "Fornecedores",
+      "secao": "Financeiro — Contas a Pagar",
+      "modulo": "SIGACOM / SIGAFIN",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Cadastro de fornecedores",
+      "uso_no_projeto": "BBFIN21, BBAJUFOR, M020INC",
+      "chave_primaria": "SA2_FILIAL + SA2_COD + SA2_LOJA"
+    },
+    {
+      "codigo": "SE2",
+      "nome": "Títulos a Pagar",
+      "secao": "Financeiro — Contas a Pagar",
+      "modulo": "SIGAFIN",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Títulos a pagar (duplicatas a fornecedores)",
+      "uso_no_projeto": "U97Stagecpagar.tlpp (join com U97), dash_integracao.tlpp",
+      "chave_primaria": "E2_FILIAL + E2_PREFIXO + E2_NUM + E2_PARCELA + E2_TIPO + E2_FORNECE + E2_LOJA"
+    },
+    {
+      "codigo": "FIL",
+      "nome": "Contas Bancárias do Fornecedor",
+      "secao": "Financeiro — Contas a Pagar",
+      "modulo": "SIGAFIN",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Contas bancárias vinculadas a fornecedores",
+      "uso_no_projeto": "BBFIN21",
+      "chave_primaria": "FIL_FILIAL + FIL_FORNECE + FIL_LOJA + FIL_BANCO + FIL_AGENCIA + FIL_CONTA"
+    },
+    {
+      "codigo": "CTD",
+      "nome": "Plano de Contas / Itens Contábeis",
+      "secao": "Contabilidade",
+      "modulo": "SIGACTB",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Plano de contas e itens contábeis",
+      "uso_no_projeto": "M020INC, M030INC",
+      "chave_primaria": "CTD_FILIAL + CTD_ITEM"
+    },
+    {
+      "codigo": "CTT",
+      "nome": "Centros de Custo",
+      "secao": "Contabilidade",
+      "modulo": "SIGACTB",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Centros de custo contábeis",
+      "uso_no_projeto": "recibo.PRX, INTEGRACAO_APPUS.tlpp, fRel005.prw",
+      "chave_primaria": "CTT_FILIAL + CTT_CUSTO"
+    },
+    {
+      "codigo": "CTF",
+      "nome": "Lançamentos Contábeis",
+      "secao": "Contabilidade",
+      "modulo": "SIGACTB",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Lançamentos do livro-razão contábil",
+      "uso_no_projeto": "BBCTB01.PRW",
+      "chave_primaria": "CF_FILIAL + CF_LOTE + CF_SUBLOTE"
+    },
+    {
+      "codigo": "SI3",
+      "nome": "Centros de Custo (Descrição Complementar)",
+      "secao": "Contabilidade",
+      "modulo": "SIGACTB / SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Descrição complementar de CC",
+      "uso_no_projeto": "recibo.PRX",
+      "chave_primaria": "I3_FILIAL + I3_CCUSTO"
+    },
+    {
+      "codigo": "SRA",
+      "nome": "Funcionários",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Cadastro de funcionários",
+      "uso_no_projeto": "recibo.PRX, BCGPE007, INTEGRACAO_APPUS.tlpp, PROCU16.TLPP",
+      "chave_primaria": "RA_FILIAL + RA_MAT"
+    },
+    {
+      "codigo": "SRC",
+      "nome": "Verbas de Competência",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Verbas fixas/variáveis por competência",
+      "uso_no_projeto": "recibo.PRX",
+      "chave_primaria": "RC_FILIAL + RC_MAT + RC_COMPETENCIA + RC_CODVB"
+    },
+    {
+      "codigo": "SRD",
+      "nome": "Verbas de Débito (Folha)",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Verbas de débito calculadas na folha",
+      "uso_no_projeto": "recibo.PRX, BCGPE007",
+      "chave_primaria": "RD_FILIAL + RD_MAT + RD_DATARQ + RD_CODVB"
+    },
+    {
+      "codigo": "SRV",
+      "nome": "Verbas / Códigos de Folha",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Tabela de verbas e códigos da folha",
+      "uso_no_projeto": "BCGPE007",
+      "chave_primaria": "RV_FILIAL + RV_COD"
+    },
+    {
+      "codigo": "SRY",
+      "nome": "Roteiros de Folha",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Roteiros de cálculo da folha",
+      "uso_no_projeto": "recibo.PRX",
+      "chave_primaria": "RY_FILIAL + RY_COD"
+    },
+    {
+      "codigo": "SRH",
+      "nome": "Histórico do Funcionário",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Histórico de alterações do funcionário",
+      "uso_no_projeto": "recibo.PRX",
+      "chave_primaria": "RH_FILIAL + RH_MAT + RH_DTINI"
+    },
+    {
+      "codigo": "SRJ",
+      "nome": "Função / Cargo (RH)",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Funções e cargos dos funcionários",
+      "uso_no_projeto": "INTEGRACAO_APPUS.tlpp",
+      "chave_primaria": "RJ_FILIAL + RJ_COD"
+    },
+    {
+      "codigo": "SRK",
+      "nome": "(RH — Cancelamento)",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Tabelas auxiliares utilizadas em consultas SQL",
+      "uso_no_projeto": "BCGPE007.prw",
+      "chave_primaria": "RK_FILIAL + RK_MAT + RK_DATA"
+    },
+    {
+      "codigo": "SQB",
+      "nome": "Departamentos (RH)",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Cadastro de departamentos",
+      "uso_no_projeto": "recibo.PRX, INTEGRACAO_APPUS.tlpp",
+      "chave_primaria": "QB_FILIAL + QB_DEPTO"
+    },
+    {
+      "codigo": "SQ3",
+      "nome": "Cargos (RH)",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Cadastro de cargos",
+      "uso_no_projeto": "recibo.PRX",
+      "chave_primaria": "Q3_FILIAL + Q3_CARGO"
+    },
+    {
+      "codigo": "RCH",
+      "nome": "Calendário / Período Folha",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Períodos de competência da folha",
+      "uso_no_projeto": "recibo.PRX",
+      "chave_primaria": "CH_FILIAL + CH_PERREF"
+    },
+    {
+      "codigo": "RCC",
+      "nome": "Códigos de Folha",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Códigos de eventos da folha",
+      "uso_no_projeto": "recibo.PRX, BCGPE41",
+      "chave_primaria": "CC_FILIAL + CC_COD"
+    },
+    {
+      "codigo": "RCE",
+      "nome": "Sindicatos",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Cadastro de sindicatos",
+      "uso_no_projeto": "BCGPE007",
+      "chave_primaria": "CE_FILIAL + CE_COD"
+    },
+    {
+      "codigo": "RCF",
+      "nome": "Semana Folha",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Controle de semanas na folha",
+      "uso_no_projeto": "recibo.PRX",
+      "chave_primaria": "CF_FILIAL + CF_SEMANA"
+    },
+    {
+      "codigo": "RCB",
+      "nome": "Seguro Vida (RH)",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Controle de seguro de vida",
+      "uso_no_projeto": "BCGPE41",
+      "chave_primaria": "RCB_FILIAL + RCB_MAT + RCB_TPBENEF"
+    },
+    {
+      "codigo": "RGG",
+      "nome": "Categorias (RH)",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Categorias de funcionários",
+      "uso_no_projeto": "recibo.PRX",
+      "chave_primaria": "GG_FILIAL + GG_COD"
+    },
+    {
+      "codigo": "VAM",
+      "nome": "Municípios",
+      "secao": "Folha de Pagamento / RH (SIGAGPE)",
+      "modulo": "SIGAGPE",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Tabelas complementares de RH",
+      "uso_no_projeto": "PROCU16.TLPP",
+      "chave_primaria": "AM_COD"
+    },
+    {
+      "codigo": "SX5",
+      "nome": "Tabelas Genéricas",
+      "secao": "Tabelas de Estrutura e Genéricas",
+      "modulo": "Geral (todos os módulos)",
+      "tipo": "Padrão TOTVS (metadados)",
+      "descricao": "Tabelas auxiliares / de domínio do sistema",
+      "uso_no_projeto": "recibo.PRX, CHGX5FIL.PRW",
+      "chave_primaria": "X5_FILIAL + X5_TABELA + X5_CHAVE"
+    },
+    {
+      "codigo": "SX3",
+      "nome": "Estrutura de Campos (Cache)",
+      "secao": "Tabelas de Estrutura e Genéricas",
+      "modulo": "Geral (todos os módulos)",
+      "tipo": "Padrão TOTVS (metadados)",
+      "descricao": "Dicionário de campos do sistema",
+      "uso_no_projeto": "Vários (TamSX3, GetSx3Cache)",
+      "chave_primaria": "X3_ARQUIVO + X3_CAMPO"
+    },
+    {
+      "codigo": "SCP",
+      "nome": "Cadastro Protheus (Parâmetros Fluig)",
+      "secao": "Tabelas de Estrutura e Genéricas",
+      "modulo": "Geral",
+      "tipo": "Padrão TOTVS",
+      "descricao": "Parâmetros e pré-requisitos do sistema",
+      "uso_no_projeto": "GERPREREQ.prw (integração Fluig)",
+      "chave_primaria": "CP_FILIAL + CP_CODIGO"
+    },
+    {
+      "codigo": "ZAZ",
+      "nome": "Stage Controle de Cobrança (Custom)",
+      "secao": "Tabelas Customizadas — Stage / Integração",
+      "modulo": "Custom — Financeiro/Cobrança",
+      "tipo": "**Customizada**",
+      "descricao": "Controle de stage do Job de Cobrança",
+      "uso_no_projeto": "BBFIN41 (Job Cobrança)",
+      "chave_primaria": "ZAZ_FILIAL + ZAZ_COD"
+    },
+    {
+      "codigo": "U97",
+      "nome": "Stage Contas a Pagar (Custom REST)",
+      "secao": "Tabelas Customizadas — Stage / Integração",
+      "modulo": "Custom — REST / Integração CP",
+      "tipo": "**Customizada**",
+      "descricao": "Stage de integração REST para Contas a Pagar",
+      "uso_no_projeto": "U97Stagecpagar.tlpp, dash_integracao.tlpp",
+      "chave_primaria": "U97_FILIAL + U97_ID"
+    },
+    {
+      "codigo": "UA3",
+      "nome": "Stage Lançamento Contábil (Custom REST)",
+      "secao": "Tabelas Customizadas — Stage / Integração",
+      "modulo": "Custom — REST / Integração Contabilidade",
+      "tipo": "**Customizada**",
+      "descricao": "Stage de integração REST para lançamentos contábeis",
+      "uso_no_projeto": "stage_contabil.tlpp",
+      "chave_primaria": "UA3_FILIAL + UA3_ID"
+    },
+    {
+      "codigo": "U98",
+      "nome": "Stage Contas a Receber — Integração Legado (Custom)",
+      "secao": "Tabelas Customizadas — Stage / Integração",
+      "modulo": "Custom — Financeiro / Integração Sistema Legado",
+      "tipo": "**Customizada**",
+      "descricao": "Stage de integração REST/Job para Contas a Receber vindos do sistema legado",
+      "uso_no_projeto": "SCHBBPRCU98.tlpp (Job de processamento)",
+      "chave_primaria": "U98_FILIAL + U98_PREFIX + U98_NUM + U98_PARCEL + U98_TIPO + U98_CLIENT"
+    },
+    {
+      "codigo": "U13",
+      "nome": "Stage de Medições Fluig — Contratos (Custom)",
+      "secao": "Contratos / Fluig",
+      "modulo": "Custom — Contratos (SIGAGCT) / Integração Fluig",
+      "tipo": "**Customizada**",
+      "descricao": "Stage de medições enviadas pelo Fluig para processamento no Protheus (inclusão de medição e geração de pré-nota)",
+      "uso_no_projeto": "GERMEDICAO.tlpp (Job de processamento de medições)",
+      "chave_primaria": "U13_FILIAL + U13_NFLUIG + U13_ITEM"
+    },
+    {
+      "codigo": "U05",
+      "nome": "Cadastro Workflow (Custom)",
+      "secao": "Workflow / Outros",
+      "modulo": "Custom — Workflow",
+      "tipo": "**Customizada**",
+      "descricao": "Cadastro de controle de Workflow",
+      "uso_no_projeto": "F240OK.prw (código comentado)"
+    }
+  ],
+  "versao": 1
+}
